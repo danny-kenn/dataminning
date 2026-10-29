@@ -1,0 +1,285 @@
+{
+  "raw_shape": [
+    1000,
+    16
+  ],
+  "missing_before": {
+    "parental_education_level": 91
+  },
+  "duplicates": 0,
+  "clean_shape": [
+    1000,
+    15
+  ],
+  "exam_score_summary": {
+    "count": 1000.0,
+    "mean": 69.6,
+    "std": 16.89,
+    "min": 18.4,
+    "25%": 58.48,
+    "50%": 70.5,
+    "75%": 81.33,
+    "max": 100.0
+  },
+  "correlations": [
+    {
+      "feature": "study_hours_per_day",
+      "pearson_r": 0.825,
+      "pearson_p": 4.6e-250,
+      "spearman_rho": 0.812,
+      "spearman_p": 1.09e-235
+    },
+    {
+      "feature": "mental_health_rating",
+      "pearson_r": 0.322,
+      "pearson_p": 1.75e-25,
+      "spearman_rho": 0.323,
+      "spearman_p": 9e-26
+    },
+    {
+      "feature": "netflix_hours",
+      "pearson_r": -0.172,
+      "pearson_p": 4.6e-08,
+      "spearman_rho": -0.165,
+      "spearman_p": 1.49e-07
+    },
+    {
+      "feature": "social_media_hours",
+      "pearson_r": -0.167,
+      "pearson_p": 1.14e-07,
+      "spearman_rho": -0.166,
+      "spearman_p": 1.24e-07
+    },
+    {
+      "feature": "exercise_frequency",
+      "pearson_r": 0.16,
+      "pearson_p": 3.59e-07,
+      "spearman_rho": 0.15,
+      "spearman_p": 1.83e-06
+    },
+    {
+      "feature": "sleep_hours",
+      "pearson_r": 0.122,
+      "pearson_p": 0.000115,
+      "spearman_rho": 0.123,
+      "spearman_p": 9.15e-05
+    },
+    {
+      "feature": "attendance_percentage",
+      "pearson_r": 0.09,
+      "pearson_p": 0.00447,
+      "spearman_rho": 0.094,
+      "spearman_p": 0.00296
+    },
+    {
+      "feature": "age",
+      "pearson_r": -0.009,
+      "pearson_p": 0.778,
+      "spearman_rho": -0.01,
+      "spearman_p": 0.752
+    }
+  ],
+  "attendance_partial_corr": {
+    "r": 0.248,
+    "p": 2e-15
+  },
+  "attendance_r_squared_alone": 0.0081,
+  "score_by_attendance_band": {
+    "<70%": {
+      "students": 77,
+      "mean_score": 68.0
+    },
+    "70-79%": {
+      "students": 252,
+      "mean_score": 68.2
+    },
+    "80-89%": {
+      "students": 396,
+      "mean_score": 69.4
+    },
+    "90-100%": {
+      "students": 275,
+      "mean_score": 71.5
+    }
+  },
+  "attendance_ttest_90plus_vs_below70": {
+    "t": 1.82,
+    "p": 0.0706
+  },
+  "mean_score_by_category": {
+    "gender": {
+      "Female": 69.7,
+      "Male": 69.4,
+      "Other": 70.6
+    },
+    "part_time_job": {
+      "No": 69.8,
+      "Yes": 68.7
+    },
+    "diet_quality": {
+      "Fair": 70.4,
+      "Good": 69.4,
+      "Poor": 68.1
+    },
+    "parental_education_level": {
+      "Bachelor": 70.3,
+      "High School": 69.5,
+      "Master": 68.1,
+      "Not reported": 70.0
+    },
+    "internet_quality": {
+      "Average": 70.6,
+      "Good": 68.6,
+      "Poor": 69.7
+    },
+    "extracurricular_participation": {
+      "No": 69.6,
+      "Yes": 69.6
+    }
+  },
+  "split": {
+    "train": 800,
+    "test": 200,
+    "seed": 42
+  },
+  "model_comparison": [
+    {
+      "model": "Linear Regression",
+      "test_r2": 0.8968,
+      "rmse": 5.15,
+      "mae": 4.19,
+      "cv10_r2_mean": 0.8941,
+      "cv10_r2_std": 0.0222
+    },
+    {
+      "model": "Ridge Regression",
+      "test_r2": 0.8967,
+      "rmse": 5.15,
+      "mae": 4.19,
+      "cv10_r2_mean": 0.8941,
+      "cv10_r2_std": 0.0222
+    },
+    {
+      "model": "Decision Tree",
+      "test_r2": 0.7103,
+      "rmse": 8.62,
+      "mae": 6.9,
+      "cv10_r2_mean": 0.7296,
+      "cv10_r2_std": 0.0337
+    },
+    {
+      "model": "Random Forest",
+      "test_r2": 0.8488,
+      "rmse": 6.23,
+      "mae": 5.0,
+      "cv10_r2_mean": 0.8507,
+      "cv10_r2_std": 0.0237
+    },
+    {
+      "model": "Gradient Boosting",
+      "test_r2": 0.8798,
+      "rmse": 5.55,
+      "mae": 4.62,
+      "cv10_r2_mean": 0.8775,
+      "cv10_r2_std": 0.0209
+    }
+  ],
+  "best_model": "Linear Regression",
+  "permutation_importance": [
+    {
+      "feature": "study_hours_per_day",
+      "r2_drop": 1.4038,
+      "std": 0.0907
+    },
+    {
+      "feature": "mental_health_rating",
+      "r2_drop": 0.2317,
+      "std": 0.0186
+    },
+    {
+      "feature": "exercise_frequency",
+      "r2_drop": 0.0862,
+      "std": 0.0094
+    },
+    {
+      "feature": "social_media_hours",
+      "r2_drop": 0.0675,
+      "std": 0.0117
+    },
+    {
+      "feature": "sleep_hours",
+      "r2_drop": 0.0479,
+      "std": 0.0069
+    },
+    {
+      "feature": "netflix_hours",
+      "r2_drop": 0.039,
+      "std": 0.0074
+    },
+    {
+      "feature": "attendance_percentage",
+      "r2_drop": 0.0133,
+      "std": 0.0036
+    },
+    {
+      "feature": "internet_quality",
+      "r2_drop": 0.0007,
+      "std": 0.0004
+    },
+    {
+      "feature": "gender",
+      "r2_drop": 0.0002,
+      "std": 0.0004
+    },
+    {
+      "feature": "extracurricular_participation",
+      "r2_drop": -0.0001,
+      "std": 0.0001
+    },
+    {
+      "feature": "part_time_job",
+      "r2_drop": -0.0002,
+      "std": 0.0004
+    },
+    {
+      "feature": "parental_education_level",
+      "r2_drop": -0.0004,
+      "std": 0.0009
+    },
+    {
+      "feature": "age",
+      "r2_drop": -0.0007,
+      "std": 0.0003
+    },
+    {
+      "feature": "diet_quality",
+      "r2_drop": -0.0012,
+      "std": 0.0013
+    }
+  ],
+  "attendance_ablation": {
+    "model": "Linear Regression",
+    "r2_with": 0.8968,
+    "r2_without": 0.8898,
+    "change": 0.007
+  },
+  "linear_standardised_coefs_numeric": {
+    "age": 0.121,
+    "study_hours_per_day": 14.145,
+    "social_media_hours": -3.134,
+    "netflix_hours": -2.534,
+    "attendance_percentage": 1.36,
+    "sleep_hours": 2.422,
+    "exercise_frequency": 2.656,
+    "mental_health_rating": 5.564
+  },
+  "raw_effect_per_unit": {
+    "study_hours_per_day": 9.575,
+    "mental_health_rating": 1.944,
+    "attendance_percentage": 0.143,
+    "sleep_hours": 1.992,
+    "exercise_frequency": 1.45,
+    "social_media_hours": -2.602,
+    "netflix_hours": -2.282
+  }
+}

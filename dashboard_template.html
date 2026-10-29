@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Student Performance Analytics</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--tx:#1f2937;--mu:#64748b;--bd:#dfe4ec;--ac:#1d4f91;--acs:#e8f0fb;--ng:#b42318;--ok:#157347;--gr:#a9b4c4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e141d;--card:#151d29;--tx:#e6ebf2;--mu:#93a0b3;--bd:#263244;--ac:#6ea3e6;--acs:#1c2a3f;--ng:#f08178;--ok:#5cc08a;--gr:#56657b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e141d;--card:#151d29;--tx:#e6ebf2;--mu:#93a0b3;--bd:#263244;--ac:#6ea3e6;--acs:#1c2a3f;--ng:#f08178;--ok:#5cc08a;--gr:#56657b;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.app{display:flex;min-height:100vh}aside{width:232px;background:var(--card);border-right:1px solid var(--bd);padding:18px 12px;flex-shrink:0}
+.brand{display:flex;gap:10px;align-items:center;padding:0 8px 18px;border-bottom:1px solid var(--bd);margin-bottom:14px}.brand b{display:grid;place-items:center;width:32px;height:32px;border-radius:6px;background:var(--ac);color:#fff}.brand span{font-weight:600;line-height:1.2;font-size:13px}.brand small{display:block;color:var(--mu);font-weight:400;font-size:11px}
+.grp{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);padding:0 10px;margin:6px 0}
+nav button{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-left:3px solid transparent;color:var(--tx);padding:9px 10px;border-radius:0 6px 6px 0;font:inherit;cursor:pointer;margin-bottom:2px}
+nav button:hover{background:var(--bg)}nav button.on{background:var(--acs);color:var(--ac);border-left-color:var(--ac);font-weight:600}
+.foot{margin-top:24px;padding:12px 10px 0;border-top:1px solid var(--bd);font-size:12px;color:var(--mu)}
+main{flex:1;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border-bottom:1px solid var(--bd);padding:14px 26px}
+.crumb{font-size:12px;color:var(--mu)}h1{font-size:19px;margin:2px 0 0;font-weight:600}.meta{font-size:12px;color:var(--mu);border:1px solid var(--bd);border-radius:4px;padding:5px 10px}
+.body{padding:20px 26px 36px}.grid{display:grid;gap:14px;margin-bottom:14px}.k4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.two{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:16px;min-width:0}
+.kpi .l{display:flex;justify-content:space-between;color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.kpi .v{font-size:26px;font-weight:600;margin:6px 0 2px}.kpi .s{color:var(--mu);font-size:12px}
+.sum{border-left:4px solid var(--ac)}.sum h3{margin-bottom:6px}.sum p{margin:0}
+h3{margin:0 0 2px;font-size:14px;font-weight:600}.note{color:var(--mu);font-size:12px;margin:0 0 12px}.chart{position:relative;height:270px}
+select{width:100%;padding:8px 10px;border-radius:4px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit;margin:2px 0 8px}
+.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%}th,td{padding:8px 10px;border-bottom:1px solid var(--bd);text-align:right;white-space:nowrap}th{color:var(--mu);font-weight:600;font-size:12px;background:var(--bg)}th:first-child,td:first-child,td.l,th.l{text-align:left}tr.best td{font-weight:600;color:var(--ok)}
+.view{display:none}.view.on{display:block}.warn{border-color:var(--ng);color:var(--ng);margin-bottom:14px}
+@media(max-width:780px){.app{display:block}aside{width:auto;border-right:0;border-bottom:1px solid var(--bd);padding:10px}.brand{border:0;padding:0 4px 8px;margin:0}.grp,.foot{display:none}nav{display:flex;overflow-x:auto;gap:4px}nav button{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent;border-radius:4px;margin:0}nav button.on{border-bottom-color:var(--ac)}.top,.body{padding-left:14px;padding-right:14px}}
+</style></head><body><div class="app">
+<aside><div class="brand"><b id="logo"></b><span>Student Performance<small>Analytics · COSC391</small></span></div><div class="grp">Analysis</div><nav id="nav"></nav>
+<div class="foot">John Kamau<br>Lynn Bitok<br>David Kiamba</div></aside>
+<main><div class="top"><div><div class="crumb" id="crumb"></div><h1 id="ttl"></h1></div><div class="meta">student_habits_performance.csv · <span id="n"></span> records</div></div>
+<div class="body"><div id="warn"></div>
+<section class="view" id="v0"><div class="card sum" style="margin-bottom:14px"><h3>Summary of findings</h3><p id="verdict"></p></div><div class="grid k4" id="kpis"></div>
+<div class="grid two"><div class="card"><h3>Correlation with exam score</h3><p class="note">Pearson r for each numeric factor</p><div class="chart"><canvas id="c1"></canvas></div></div>
+<div class="card"><h3>Factor importance</h3><p class="note">Fall in model R² when the factor is shuffled (test set)</p><div class="chart"><canvas id="c2"></canvas></div></div></div></section>
+<section class="view" id="v1"><div class="grid k4" id="dkpi"></div><div class="grid two"><div class="card"><h3>Distribution of exam scores</h3><p class="note">Number of students per 10-mark range</p><div class="chart"><canvas id="c8"></canvas></div></div>
+</div><div class="card"><h3>Data dictionary</h3><p class="note">All 16 columns in the dataset</p><div class="scroll"><table id="dt"></table></div></div></section>
+<section class="view" id="v2"><div class="grid k4" id="akpi"></div><div class="grid two"><div class="card"><h3>Mean exam score by attendance</h3><p class="note">Attendance bands, marks out of 100</p><div class="chart"><canvas id="c3"></canvas></div></div>
+<div class="card"><h3>Contribution of attendance to the model</h3><p class="note">Test R² with and without attendance</p><div class="chart"><canvas id="c5"></canvas></div></div></div></section>
+<section class="view" id="v3"><div class="grid two"><div class="card"><h3>Factor explorer</h3><select id="sel"></select><p class="note" id="exn"></p><div class="chart" style="height:230px"><canvas id="c4"></canvas></div></div>
+<div class="card"><h3>Effect of one extra unit</h3><p class="note">Change in exam marks, other factors held equal</p><div class="chart"><canvas id="c6"></canvas></div></div></div></section>
+<section class="view" id="v4"><div class="grid two"><div class="card"><h3>Model accuracy (R²)</h3><p class="note">Tested on 200 students not used in training</p><div class="chart"><canvas id="c7"></canvas></div></div>
+<div class="card"><h3>Detailed results</h3><p class="note">RMSE and MAE are in exam marks</p><div class="scroll"><table id="tb"></table></div></div></div></section>
+<p class="note">Correlation shows association, not cause. Source: Kaggle, Student Habits vs Academic Performance.</p></div></main></div>
+<script>
+(function(){
+const D=__DATA__;
+const P={grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
+db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/>',
+cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+trend:'<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+layers:'<path d="M12 2l10 5-10 5L2 7z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>',
+users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 4a3.5 3.5 0 010 7M22 21c0-3-2-5-4-5.5"/>',
+act:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',book:'<path d="M4 4h6a2 2 0 012 2v14a2 2 0 00-2-2H4zM20 4h-6a2 2 0 00-2 2v14a2 2 0 012-2h6z"/>',
+tgt:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',bars:'<path d="M5 21V10M12 21V3M19 21v-7"/>',
+warn:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',chk:'<path d="M20 6L9 17l-5-5"/>',doc:'<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/>'};
+const ic=k=>'<svg class="i" viewBox="0 0 24 24">'+P[k]+'</svg>';
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const f2=x=>(x+Math.sign(x)*1e-9).toFixed(2);
+const nice=s=>s.replace(/_/g," ").replace("per day","/ day").replace("percentage","%");
+const att=D.corr.find(c=>c.feature=="attendance_percentage"),lead=D.corr[0],best=D.models.reduce((a,b)=>b.test_r2>a.test_r2?b:a);
+const T=[["Overview","grid","Overview","Does attendance affect exam scores?"],["Dataset","db","Dataset","Dataset summary and data dictionary"],["Attendance","cal","Attendance","Attendance and exam performance"],["Drivers","trend","Drivers","Factors affecting exam scores"],["Models","layers","Models","Model performance"]];
+document.getElementById("n").textContent=D.n.toLocaleString();document.getElementById("logo").innerHTML=ic("bars");
+const nav=document.getElementById("nav"),made={};
+T.forEach((t,i)=>{const b=document.createElement("button");b.innerHTML=ic(t[1])+"<span>"+t[2]+"</span>";b.onclick=()=>show(i);nav.appendChild(b)});
+function bar(id,labels,vals,o){o=o||{};if(typeof Chart=="undefined")return null;
+return new Chart(document.getElementById(id),{type:"bar",data:{labels:labels,datasets:[{data:vals,backgroundColor:o.colors||css("--ac"),borderRadius:2,maxBarThickness:30}]},options:{indexAxis:o.h?"y":"x",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:css("--mu"),font:{size:11}},grid:{color:o.h?css("--bd"):"transparent"},min:o.xmin},y:{ticks:{color:css("--mu"),font:{size:11}},grid:{color:o.h?"transparent":css("--bd")},min:o.ymin}}}})}
+const cs=[...D.corr].sort((a,b)=>b.pearson_r-a.pearson_r);
+const draw={
+0(){bar("c1",cs.map(c=>nice(c.feature)),cs.map(c=>c.pearson_r),{h:1,colors:cs.map(c=>c.pearson_r<0?css("--ng"):css("--ac"))});bar("c2",D.imp.map(i=>nice(i.feature)),D.imp.map(i=>Math.max(i.r2_drop,0)),{h:1})},
+1(){bar("c8",D.hist.labels,D.hist.values);
+document.getElementById("dt").innerHTML="<tr><th class='l'>Column</th><th class='l'>Role</th><th class='l'>Type</th><th>Missing</th><th class='l'>Summary</th></tr>"+D.cols.map(c=>`<tr><td class="l">${c.n}</td><td class="l">${c.r}</td><td class="l">${c.t}</td><td>${c.m}</td><td class="l">${c.i}</td></tr>`).join("")},
+2(){const k=Object.keys(D.bands);bar("c3",k,k.map(x=>D.bands[x].mean_score),{ymin:60});bar("c5",["With attendance","Without attendance"],[D.abl.r2_with,D.abl.r2_without],{ymin:.8,colors:[css("--ac"),css("--gr")]})},
+3(){const sel=document.getElementById("sel");Object.keys(D.explore).forEach(k=>sel.add(new Option(nice(k),k)));let ch=null;
+const ex=()=>{const k=sel.value,e=D.explore[k],r=D.corr.find(c=>c.feature==k).pearson_r;document.getElementById("exn").textContent="Mean exam score by quartile of the factor · r = "+f2(r);if(ch)ch.destroy();ch=bar("c4",e.labels,e.values,{ymin:Math.floor(Math.min(...e.values)-5)})};
+sel.onchange=ex;sel.value="study_hours_per_day";ex();
+const rk=Object.entries(D.raw).sort((a,b)=>b[1]-a[1]).filter(x=>x[0]!="attendance_percentage");bar("c6",rk.map(x=>nice(x[0])),rk.map(x=>x[1]),{h:1,colors:rk.map(x=>x[1]<0?css("--ng"):css("--ac"))})},
+4(){bar("c7",D.models.map(m=>m.model),D.models.map(m=>m.test_r2),{ymin:.6,colors:D.models.map(m=>m.model==best.model?css("--ok"):css("--ac"))});
+document.getElementById("tb").innerHTML="<tr><th class='l'>Model</th><th>R²</th><th>RMSE</th><th>MAE</th><th>10-fold R²</th></tr>"+D.models.map(m=>`<tr class="${m.model==best.model?"best":""}"><td class="l">${m.model}</td><td>${m.test_r2.toFixed(3)}</td><td>${m.rmse}</td><td>${m.mae}</td><td>${m.cv10_r2_mean.toFixed(3)}</td></tr>`).join("")}};
+function show(i){document.querySelectorAll(".view").forEach((v,j)=>v.classList.toggle("on",i==j));[...nav.children].forEach((b,j)=>b.classList.toggle("on",i==j));
+document.getElementById("crumb").textContent="Analysis / "+T[i][0];document.getElementById("ttl").textContent=T[i][3];if(!made[i]){made[i]=1;draw[i]()}}
+const kp=(i,l,v,s)=>`<div class="card kpi"><div class="l"><span>${l}</span>${ic(i)}</div><div class="v">${v}</div><div class="s">${s}</div></div>`;
+document.getElementById("kpis").innerHTML=kp("act","Attendance vs score",f2(att.pearson_r),"Pearson r · weak positive")+kp("book","Study hours vs score",f2(lead.pearson_r),"Pearson r · strong positive")+kp("tgt","Best model R²",best.test_r2.toFixed(3),best.model)+kp("bars","Typical error","±"+best.rmse.toFixed(2),"Marks (RMSE) on test data");
+document.getElementById("verdict").innerHTML=`Attendance has only a weak positive link with exam scores (r = ${f2(att.pearson_r)}, about ${(att.pearson_r**2*100).toFixed(1)}% of the variation). The strongest factor by far is ${nice(lead.feature)} (r = ${f2(lead.pearson_r)}), followed by ${nice(D.corr[1].feature)} (r = ${f2(D.corr[1].pearson_r)}). One extra study hour per day goes with about ${D.raw.study_hours_per_day.toFixed(1)} more marks.`;
+document.getElementById("dkpi").innerHTML=kp("users","Records",D.n.toLocaleString(),"Students")+kp("db","Columns","16","15 usable after removing the ID")+kp("warn","Missing values",D.miss,"All in parental education")+kp("doc","Mean exam score",D.score.mean,"Std dev "+D.score["std"]+" · range "+D.score["min"]+"–"+D.score["max"]);
+document.getElementById("akpi").innerHTML=kp("act","Correlation",f2(att.pearson_r),"p = "+att.pearson_p)+kp("trend","Partial correlation",f2(D.partial.r),"Other factors held equal")+kp("cal","Per 10 attendance points","+"+(D.raw.attendance_percentage*10).toFixed(1),"Marks on exam score")+kp("chk","90%+ vs under 70%","p = "+D.tt.p,"Not significant at 5%");
+if(typeof Chart=="undefined")document.getElementById("warn").innerHTML='<div class="card warn">Charts could not load. Connect to the internet and refresh the page.</div>';
+show(0);
+})();
+</script></body></html>
