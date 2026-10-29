@@ -2,7 +2,8 @@
 
 **Course:** COSC391 Data Mining, University of Eastern Africa, Baraton
 **Group:** John Kamau, Lynn Bitok, David Kiamba
-**Live dashboard:** `https://YOURUSERNAME.github.io/student-attendance-performance/` *(replace with our GitHub Pages link once it is live)*
+**Repository:** https://github.com/danny-kenn/dataminning
+**Live dashboard:** https://danny-kenn.github.io/dataminning/
 
 ---
 
@@ -33,7 +34,7 @@ We wrote the Results section (two paragraphs, plus a model table and two figures
 
 ## 3. The dataset
 
-We used the Kaggle dataset **"Student Habits vs Academic Performance"** *(add the exact dataset author and URL here)*. It is stored in `data/student_habits_performance.csv`.
+We used the Kaggle dataset **"Student Habits vs Academic Performance"**, which we accessed through the public Kaggle notebook "Student Habits & Academic Performance | 90%" by kifayatullahe (https://www.kaggle.com/code/kifayatullahe/student-habits-academic-performance-90). It is stored in `data/student_habits_performance.csv`.
 
 - **Size:** 1,000 students and 16 columns.
 - **Target (what we predict):** `exam_score`, from 18.4 to 100, with a mean of 69.6 and a standard deviation of 16.89.
@@ -188,6 +189,6 @@ After uploading the repository, we open **Settings**, then **Pages**, set **Sour
 ## 13. References
 
 - Korir, E. K. (2013). Students' school attendance and academic performance in Njoro District, Kenya: a relational analysis. Mount Kenya University.
-- Kaggle. *Student Habits vs Academic Performance* [Dataset]. *(add the dataset author and URL)*
+- Kaggle. *Student Habits vs Academic Performance* [Dataset]. Accessed through the Kaggle notebook "Student Habits & Academic Performance | 90%" by kifayatullahe. https://www.kaggle.com/code/kifayatullahe/student-habits-academic-performance-90
 
 The libraries we used are pandas, NumPy, SciPy, scikit-learn and Matplotlib for the analysis, and Chart.js for the dashboard charts.
